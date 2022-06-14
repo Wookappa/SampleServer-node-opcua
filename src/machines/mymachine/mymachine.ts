@@ -47,4 +47,8 @@ export const createMyMachineLogic = async (addressSpace: AddressSpace): Promise<
         organizedBy: myMachine,
     })
     // instantiate components here -> organizedBy: myMachineComponents
+    // const device = namespace.addObject({
+    //     organizedBy: addressSpace.rootFolder.objects,
+    //     browseName: "M1"
+    // });
 }
