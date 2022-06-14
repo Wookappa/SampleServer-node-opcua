@@ -19,6 +19,8 @@ import {
     UAObject,
     AddressSpace,
     UAObjectType,
+    Variant,
+    StatusCodes,
 } from 'node-opcua'
 
 export const createMyMachineLogic = async (addressSpace: AddressSpace): Promise<void> => {
@@ -47,8 +49,42 @@ export const createMyMachineLogic = async (addressSpace: AddressSpace): Promise<
         organizedBy: myMachine,
     })
     // instantiate components here -> organizedBy: myMachineComponents
-    // const device = namespace.addObject({
-    //     organizedBy: addressSpace.rootFolder.objects,
-    //     browseName: "M1"
-    // });
+    const device = namespace.addObject({
+        organizedBy: addressSpace.rootFolder.objects,
+        browseName: "M1"
+    });
+    let variable1 = 1;
+
+    // emulate variable1 changing every 500 ms
+    setInterval(() => {  variable1+=1; }, 500);
+
+    namespace.addVariable({
+        componentOf: device,
+        browseName: "MyVariable1",
+        dataType: "Double",
+        value: {
+            get:  () => new Variant({dataType: DataType.Double, value: variable1 })
+        }
+    });
+
+    let variable2 = 10.0;
+
+namespace.addVariable({
+
+    componentOf: device,
+
+    nodeId: "ns=1;b=1020FFAA", // some opaque NodeId in namespace 4
+
+    browseName: "MyVariable2",
+
+    dataType: "Double",    
+
+    value: {
+        get: () => new Variant({dataType: DataType.Double, value: variable2 }),
+        set: (variant: { value: string }) => {
+            variable2 = parseFloat(variant.value);
+            return StatusCodes.Good;
+        }
+    }
+});
 }
