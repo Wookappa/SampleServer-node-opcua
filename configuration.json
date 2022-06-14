@@ -27,7 +27,11 @@
         "./nodesets/Opc.Ua.Robotics.NodeSet2.xml",
         "./models/ShowCaseMachineTool.xml",
         "./models/sample_imm.xml",
-        "./models/opcroboticstestserver.xml"
+        "./models/opcroboticstestserver.xml",
+        "./nodesets/Opc.Ua.TMC.NodeSet2.xml",
+        "./nodesets/Opc.Ua.DI.NodeSet2.xml",
+        "./nodesets/Opc.Ua.PackML.NodeSet2.xml"
+
     ],
     "serverCapabilities": {
         "serverProfileArray": [
